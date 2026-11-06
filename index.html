@@ -247,7 +247,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
       <div><b>Sala B</b><span>Banda completa: batería, amplificadores y equipos.</span></div>
       <div><b>Sala C</b><span>Acústica: voz e instrumentos acústicos. Sin batería ni amplificadores.</span></div>
     </div>
-    <div class="note"><b>Turnos de 45 o 30 minutos:</b> los últimos 5 son para salir y dejar la sala lista. ¿Tu equipo no va a usar su turno? Avisa por el grupo de WhatsApp para liberarlo y que otro equipo lo aproveche.</div>
+    <div class="note"><b>Turnos de 30 minutos:</b> los últimos 5 son para salir y dejar la sala lista. ¿Tu equipo no va a usar su turno? Avisa por el grupo de WhatsApp para liberarlo y que otro equipo lo aproveche.</div>
     <div id="roomGrids"></div>
   </section>
 
@@ -339,7 +339,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     {s:'2026-11-06T20:30',e:'2026-11-06T21:30',t:'Taller 3 · Estructura musical',p:'Con Gustavo Rincón',tag:'Taller'},
     {s:'2026-11-06T21:30',e:'2026-11-06T22:30',t:'Sprint 2',p:'Mesón y salas según tus turnos · mentoría abierta de 9:30 a 10:00 p. m.',tag:'Sprint'},
     {s:'2026-11-06T22:30',e:'2026-11-06T23:00',t:'Mini reto',tag:'Integración'},
-    {s:'2026-11-06T23:00',e:'2026-11-07T07:00',t:'Libre · recarga de energía',p:'Turnos de sala hasta la 1:00 a. m.; después, salas libres con agenda en la puerta'},
+    {s:'2026-11-06T23:00',e:'2026-11-07T07:00',t:'Libre · recarga de energía',p:'Turnos de sala hasta las 5:00 a. m. De 5:00 a 7:00 a. m., salas vacías para descansar'},
     {s:'2026-11-07T07:00',e:'2026-11-07T08:00',t:'Despertar'},
     {s:'2026-11-07T08:00',e:'2026-11-07T08:30',t:'Desayuno',p:'Restaurante Mesón'},
     {s:'2026-11-07T08:30',e:'2026-11-07T10:00',t:'Ensayo final',p:'Salas según tus turnos · mentoría en conjunto según tu horario',tag:'Ensayo'},
@@ -353,36 +353,83 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
 
   // Turnos de sala: [inicio, sala, equipo, mentor]
   var R=[
-    ['2026-11-06T18:00','A',1,45],['2026-11-06T18:00','B',2,45],['2026-11-06T18:00','C',3,45],
-    ['2026-11-06T18:45','A',4,45],['2026-11-06T18:45','B',5,45],['2026-11-06T18:45','C',6,45],
-    ['2026-11-06T21:30','A',4,30],['2026-11-06T21:30','B',5,30],['2026-11-06T21:30','C',1,30],
-    ['2026-11-06T22:00','A',3,30],['2026-11-06T22:00','B',6,30],['2026-11-06T22:00','C',2,30],
-    ['2026-11-06T23:00','A',3,30],['2026-11-06T23:00','B',1,30],['2026-11-06T23:00','C',4,30],
-    ['2026-11-06T23:30','A',6,30],['2026-11-06T23:30','B',5,30],['2026-11-06T23:30','C',2,30],
-    ['2026-11-07T00:00','A',4,30],['2026-11-07T00:00','B',3,30],['2026-11-07T00:00','C',1,30],
-    ['2026-11-07T00:30','A',2,30],['2026-11-07T00:30','B',6,30],['2026-11-07T00:30','C',5,30],
-    ['2026-11-07T08:30','A',1,30],['2026-11-07T08:30','B',2,30],
-    ['2026-11-07T09:00','A',3,30],['2026-11-07T09:00','B',4,30],
-    ['2026-11-07T09:30','A',5,30],['2026-11-07T09:30','B',6,30]
+    ['2026-11-06T18:00','A',2,30],
+    ['2026-11-06T18:00','B',3,30],
+    ['2026-11-06T18:00','C',1,30],
+    ['2026-11-06T18:30','A',5,30],
+    ['2026-11-06T18:30','B',6,30],
+    ['2026-11-06T18:30','C',4,30],
+    ['2026-11-06T19:00','A',1,30],
+    ['2026-11-06T19:00','B',4,30],
+    ['2026-11-06T19:00','C',2,30],
+    ['2026-11-06T21:30','A',1,30],
+    ['2026-11-06T21:30','B',4,30],
+    ['2026-11-06T21:30','C',3,30],
+    ['2026-11-06T22:00','A',2,30],
+    ['2026-11-06T22:00','B',5,30],
+    ['2026-11-06T22:00','C',6,30],
+    ['2026-11-06T23:00','A',1,30],
+    ['2026-11-06T23:00','B',2,30],
+    ['2026-11-06T23:00','C',3,30],
+    ['2026-11-06T23:30','A',4,30],
+    ['2026-11-06T23:30','B',5,30],
+    ['2026-11-06T23:30','C',6,30],
+    ['2026-11-07T00:00','A',3,30],
+    ['2026-11-07T00:00','B',1,30],
+    ['2026-11-07T00:00','C',2,30],
+    ['2026-11-07T00:30','A',6,30],
+    ['2026-11-07T00:30','B',4,30],
+    ['2026-11-07T00:30','C',5,30],
+    ['2026-11-07T01:00','A',2,30],
+    ['2026-11-07T01:00','B',3,30],
+    ['2026-11-07T01:00','C',1,30],
+    ['2026-11-07T01:30','A',5,30],
+    ['2026-11-07T01:30','B',6,30],
+    ['2026-11-07T01:30','C',4,30],
+    ['2026-11-07T02:00','A',1,30],
+    ['2026-11-07T02:00','B',2,30],
+    ['2026-11-07T02:00','C',3,30],
+    ['2026-11-07T02:30','A',4,30],
+    ['2026-11-07T02:30','B',5,30],
+    ['2026-11-07T02:30','C',6,30],
+    ['2026-11-07T03:00','A',3,30],
+    ['2026-11-07T03:00','B',1,30],
+    ['2026-11-07T03:00','C',2,30],
+    ['2026-11-07T03:30','A',6,30],
+    ['2026-11-07T03:30','B',4,30],
+    ['2026-11-07T03:30','C',5,30],
+    ['2026-11-07T04:00','A',2,30],
+    ['2026-11-07T04:00','B',3,30],
+    ['2026-11-07T04:00','C',1,30],
+    ['2026-11-07T04:30','A',5,30],
+    ['2026-11-07T04:30','B',6,30],
+    ['2026-11-07T04:30','C',4,30],
+    ['2026-11-07T08:30','A',1,30],
+    ['2026-11-07T08:30','B',2,30],
+    ['2026-11-07T08:30','C',5,30],
+    ['2026-11-07T09:00','A',3,30],
+    ['2026-11-07T09:00','B',4,30],
+    ['2026-11-07T09:00','C',6,30],
+    ['2026-11-07T09:30','A',5,30],
+    ['2026-11-07T09:30','B',6,30],
+    ['2026-11-07T09:30','C',3,30]
   ].map(function(r){return {S:T(r[0]),E:T(r[0])+r[3]*MIN,room:r[1],team:r[2],min:r[3]};});
-  var FREE={S:T('2026-11-07T01:00'),E:T('2026-11-07T07:00')};
-  var FREEC={S:T('2026-11-07T08:30'),E:T('2026-11-07T10:00')};
+  var FREE={S:0,E:0};
+  var FREEC={S:0,E:0};
+  var REST={S:T('2026-11-07T05:00'),E:T('2026-11-07T07:00')};
   // Mentoría en conjunto: todos los mentores de turno, en el mismo salón, 15 min por equipo
   var MPLACE='Sala de mentoría';
   var MS=[
-    ['2026-11-06T18:00',4],['2026-11-06T18:15',5],['2026-11-06T18:30',6],
-    ['2026-11-06T18:45',1],['2026-11-06T19:00',2],['2026-11-06T19:15',3],
-    ['2026-11-07T08:30',3],['2026-11-07T08:45',4],['2026-11-07T09:00',5],
-    ['2026-11-07T09:15',6],['2026-11-07T09:30',1],['2026-11-07T09:45',2]
+    ['2026-11-06T18:00',4],['2026-11-06T18:15',5],['2026-11-06T18:30',1],['2026-11-06T18:45',2],['2026-11-06T19:00',6],['2026-11-06T19:15',3],['2026-11-07T08:30',3],['2026-11-07T08:45',6],['2026-11-07T09:00',5],['2026-11-07T09:15',1],['2026-11-07T09:30',2],['2026-11-07T09:45',4]
   ].map(function(m){var S=T(m[0]);return {S:S,E:S+15*MIN,team:m[1]};});
   var OPEN={S:T('2026-11-06T21:30'),E:T('2026-11-06T22:00')};
   function mentorsFor(t){return MENTORS.filter(function(m){return m.w.some(function(w){return T(w[0])<=t&&t<T(w[1]);});}).map(function(m){return m.k;});}
   function listNames(a){return a.length>1?a.slice(0,-1).join(', ')+' y '+a[a.length-1]:a.join('');}
   var BLOCKS=[
-    {n:'Viernes · Sprint 1',s:'2026-11-06T18:00',e:'2026-11-06T19:30',note:'Turnos de 45 minutos. Mientras tres equipos están en salas, los otros tres pasan por la mentoría.'},
+    {n:'Viernes · Sprint 1',s:'2026-11-06T18:00',e:'2026-11-06T19:30',note:'Mientras unos equipos están en salas, los demás pasan por la mentoría.'},
     {n:'Viernes · Sprint 2',s:'2026-11-06T21:30',e:'2026-11-06T22:30',note:'De 9:30 a 10:00 p. m., mentoría abierta para quien la pida.'},
-    {n:'Noche',s:'2026-11-06T23:00',e:'2026-11-07T01:00',note:'Sin mentores.'},
-    {n:'Sábado · Ensayo final',s:'2026-11-07T08:30',e:'2026-11-07T10:00',note:'Turnos de 30 minutos en las salas de banda. La sala C queda libre con agenda en la puerta. Mentoría en paralelo.'}
+    {n:'Noche',s:'2026-11-06T23:00',e:'2026-11-07T05:00',note:'Sin mentores. Cada equipo tiene un turno por hora.'},
+    {n:'Sábado · Ensayo final',s:'2026-11-07T08:30',e:'2026-11-07T10:00',note:'Último ensayo en las tres salas. Mentoría en paralelo.'}
   ];
   var ROOMNAME={A:'Sala A',B:'Sala B',C:'Sala C'};
   var MENTORS=[
@@ -475,7 +522,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     ['A','B','C'].forEach(function(k){
       var r=rs[k];
       if(r){rh+='<div class="room'+(team===r.team?' mine':'')+'"><span class="rn">'+ROOMNAME[k]+'</span><span class="rt">Eq. '+r.team+'</span><span class="rm">Hasta las '+hmShort(r.E)+'</span></div>';}
-      else{var fr=inFree||(k==='C'&&t>=FREEC.S&&t<FREEC.E);rh+='<div class="room free"><span class="rn">'+ROOMNAME[k]+'</span><span class="rt">'+(fr?'Libre':'Sin turno')+'</span><span class="rm">'+(fr?'Agenda en la puerta':'')+'</span></div>';}
+      else{var rest=t>=REST.S&&t<REST.E;rh+='<div class="room free"><span class="rn">'+ROOMNAME[k]+'</span><span class="rt">'+(rest?'Vacía':'Sin turno')+'</span><span class="rm">'+(rest?'Hora de descansar':'')+'</span></div>';}
     });
     document.getElementById('roomsNow').innerHTML=rh;
     // mentores
@@ -486,7 +533,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     if(ms.length){ms.forEach(function(x){mh+='<div class="mentor"><div class="av">'+x.m.ini+'</div><div><b>'+x.m.n+'</b><span>'+x.where+'</span></div></div>';});}
     else{
       var nxtM=null;MENTORS.forEach(function(m){m.w.forEach(function(w){var s=T(w[0]);if(s>t&&(!nxtM||s<nxtM))nxtM=s;});});
-      mh='<p class="empty">No hay mentores en este momento. '+(nxtM?'Vuelven a las '+hm(nxtM)+'. ':'')+'Para cualquier necesidad, avísale a Santiago Bedoya.</p>';
+      mh='<p class="empty">No hay mentores en este momento. '+(nxtM?'Vuelven a las '+hm(nxtM)+' ':'')+'Para cualquier necesidad, avísale a Santiago Bedoya.</p>';
     }
     document.getElementById('mentorsNow').innerHTML=mh;
   }
@@ -519,7 +566,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     function hmin(m){var h=Math.floor(m/60),r=m%60;return (h?h+' h':'')+(h&&r?' ':'')+(r?r+' min':'');}
     var mm=MS.filter(function(x){return x.team===team;});
     var nx=mine.filter(function(r){return r.E>t;})[0],h='';
-    h+='<div class="card"><div class="label">Equipo '+team+'</div><div class="big" style="margin:8px 0 6px">'+hmin(totM)+' de sala</div><p class="sub">'+mine.length+' turnos: '+hmin(bandM)+' en sala de banda y '+hmin(acM)+' en la sala acústica. Además, salas libres de 1:00 a 7:00 a. m. y la sala C libre el sábado de 8:30 a 10:00 a. m., con agenda en la puerta. Y '+mm.length+' mentorías en conjunto de 15 minutos.</p></div>';
+    h+='<div class="card"><div class="label">Equipo '+team+'</div><div class="big" style="margin:8px 0 6px">'+hmin(totM)+' de sala</div><p class="sub">'+mine.length+' turnos: '+hmin(bandM)+' en sala de banda y '+hmin(acM)+' en la sala acústica. Todos los turnos son de 30 minutos. Y '+mm.length+' mentorías en conjunto de 15 minutos.</p></div>';
     if(nx){var live=nx.S<=t;h+='<div class="card next"><div class="cd" style="background:var(--gold)"><b style="color:#00205B">'+(live?'Ya':dur(nx.S-t).big.trim())+'</b><span style="color:#00205B">'+(live?'en sala':'para')+'</span></div><div><div class="label">Próximo turno</div><h3>'+ROOMNAME[nx.room]+' · '+hm(nx.S)+'</h3><p>Turno de '+nx.min+' minutos</p></div></div>';}
     h+='<div class="turns">';
     var items=mine.map(function(r){return {S:r.S,E:r.E,k:'sala',r:r};}).concat(mm.map(function(x){return {S:x.S,E:x.E,k:'ment'};})).sort(function(a,b){return a.S-b.S;});
@@ -547,12 +594,12 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
         h+='<tr class="'+(live?'liverow':'')+'"><td>'+hmShort(x)+'</td>';
         ['A','B','C'].forEach(function(k){
           var r=R.filter(function(q){return q.S===x&&q.room===k;})[0];
-          h+='<td>'+(r?'<span class="cell'+(team===r.team?' mine':'')+'">Eq. '+r.team+'</span>':(b.n.indexOf('Sábado')===0&&k==='C'?'<small style="color:var(--soft)">Libre</small>':'—'))+'</td>';
+          h+='<td>'+(r?'<span class="cell'+(team===r.team?' mine':'')+'">Eq. '+r.team+'</span>':'—')+'</td>';
         });
         h+='</tr>';
       });
       h+='</tbody></table></div>';
-      if(b.n==='Noche'){h+='<div class="note"><b>Madrugada, de 1:00 a 7:00 a. m.:</b> salas libres. Anótate en la hoja de la puerta; máximo 30 minutos si hay otro equipo esperando.</div>';}
+      if(b.n==='Noche'){h+='<div class="note"><b>De 5:00 a 7:00 a. m.:</b> las salas quedan vacías. Es hora de descansar antes del desayuno.</div>';}
     });
     var groups=[['Viernes · Sprint 1',MS.slice(0,6)],['Sábado · Ensayo final',MS.slice(6)]];
     h+='<div class="card"><div class="label">Mentoría en conjunto · '+MPLACE+'</div><p class="sub" style="margin:6px 0 8px">Todos los mentores de turno reciben juntos a cada equipo durante 15 minutos.</p>';
