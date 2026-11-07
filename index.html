@@ -247,7 +247,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
       <div><b>Sala B</b><span>Banda completa: batería, amplificadores y equipos.</span></div>
       <div><b>Sala C</b><span>Acústica: voz e instrumentos acústicos. Sin batería ni amplificadores.</span></div>
     </div>
-    <div class="note"><b>Turnos de 30 minutos:</b> los últimos 5 son para salir y dejar la sala lista. ¿Tu equipo no va a usar su turno? Avisa por el grupo de WhatsApp para liberarlo y que otro equipo lo aproveche.</div>
+    <div class="note"><b>Turnos de 30 minutos</b> (20 en la cena): los últimos 5 son para salir y dejar la sala lista. ¿Tu equipo no va a usar su turno? Avisa por el grupo de WhatsApp para liberarlo y que otro equipo lo aproveche.</div>
     <div id="roomGrids"></div>
   </section>
 
@@ -335,7 +335,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     {s:'2026-11-06T16:00',e:'2026-11-06T17:00',t:'Taller 1 · Herramientas de composición',p:'Con Carolina Forero',tag:'Taller'},
     {s:'2026-11-06T17:00',e:'2026-11-06T18:00',t:'Refrigerio y Taller 2 · Escritura creativa',p:'Con Simón Martínez',tag:'Taller'},
     {s:'2026-11-06T18:00',e:'2026-11-06T19:30',t:'Sprint 1 · Concepto y primeras letras',p:'Mesón y salas según tus turnos · mentoría en conjunto según tu horario',tag:'Sprint'},
-    {s:'2026-11-06T19:30',e:'2026-11-06T20:30',t:'Cena',p:'Restaurante Mesón'},
+    {s:'2026-11-06T19:30',e:'2026-11-06T20:30',t:'Cena',p:'Restaurante Mesón · turnos de sala de 20 min desde las 7:50'},
     {s:'2026-11-06T20:30',e:'2026-11-06T21:30',t:'Taller 3 · Estructura musical',p:'Con Gustavo Rincón',tag:'Taller'},
     {s:'2026-11-06T21:30',e:'2026-11-06T22:30',t:'Sprint 2',p:'Mesón y salas según tus turnos · mentoría abierta de 9:30 a 10:00 p. m.',tag:'Sprint'},
     {s:'2026-11-06T22:30',e:'2026-11-06T23:00',t:'Mini reto',tag:'Integración'},
@@ -362,6 +362,8 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     ['2026-11-06T19:00','A',1,30],
     ['2026-11-06T19:00','B',4,30],
     ['2026-11-06T19:00','C',2,30],
+    ['2026-11-06T19:50','A',3,20],['2026-11-06T19:50','B',6,20],['2026-11-06T19:50','C',5,20],
+    ['2026-11-06T20:10','A',2,20],['2026-11-06T20:10','B',4,20],['2026-11-06T20:10','C',1,20],
     ['2026-11-06T21:30','A',1,30],
     ['2026-11-06T21:30','B',4,30],
     ['2026-11-06T21:30','C',3,30],
@@ -427,6 +429,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
   function listNames(a){return a.length>1?a.slice(0,-1).join(', ')+' y '+a[a.length-1]:a.join('');}
   var BLOCKS=[
     {n:'Viernes · Sprint 1',s:'2026-11-06T18:00',e:'2026-11-06T19:30',note:'Mientras unos equipos están en salas, los demás pasan por la mentoría.'},
+    {n:'Viernes · Cena',s:'2026-11-06T19:50',e:'2026-11-06T20:30',note:'Turnos cortos de 20 minutos: cada equipo come antes o después de su turno.'},
     {n:'Viernes · Sprint 2',s:'2026-11-06T21:30',e:'2026-11-06T22:30',note:'De 9:30 a 10:00 p. m., mentoría abierta para quien la pida.'},
     {n:'Noche',s:'2026-11-06T23:00',e:'2026-11-07T05:00',note:'Sin mentores. Cada equipo tiene un turno por hora.'},
     {n:'Sábado · Ensayo final',s:'2026-11-07T08:30',e:'2026-11-07T10:00',note:'Último ensayo en las tres salas. Mentoría en paralelo.'}
@@ -566,7 +569,7 @@ body.screen #pantalla{display:grid;position:fixed;inset:0;background:#00205B;col
     function hmin(m){var h=Math.floor(m/60),r=m%60;return (h?h+' h':'')+(h&&r?' ':'')+(r?r+' min':'');}
     var mm=MS.filter(function(x){return x.team===team;});
     var nx=mine.filter(function(r){return r.E>t;})[0],h='';
-    h+='<div class="card"><div class="label">Equipo '+team+'</div><div class="big" style="margin:8px 0 6px">'+hmin(totM)+' de sala</div><p class="sub">'+mine.length+' turnos: '+hmin(bandM)+' en sala de banda y '+hmin(acM)+' en la sala acústica. Todos los turnos son de 30 minutos. Y '+mm.length+' mentorías en conjunto de 15 minutos.</p></div>';
+    h+='<div class="card"><div class="label">Equipo '+team+'</div><div class="big" style="margin:8px 0 6px">'+hmin(totM)+' de sala</div><p class="sub">'+mine.length+' turnos: '+hmin(bandM)+' en sala de banda y '+hmin(acM)+' en la sala acústica. Turnos de 30 minutos, y de 20 en la cena. Y '+mm.length+' mentorías en conjunto de 15 minutos.</p></div>';
     if(nx){var live=nx.S<=t;h+='<div class="card next"><div class="cd" style="background:var(--gold)"><b style="color:#00205B">'+(live?'Ya':dur(nx.S-t).big.trim())+'</b><span style="color:#00205B">'+(live?'en sala':'para')+'</span></div><div><div class="label">Próximo turno</div><h3>'+ROOMNAME[nx.room]+' · '+hm(nx.S)+'</h3><p>Turno de '+nx.min+' minutos</p></div></div>';}
     h+='<div class="turns">';
     var items=mine.map(function(r){return {S:r.S,E:r.E,k:'sala',r:r};}).concat(mm.map(function(x){return {S:x.S,E:x.E,k:'ment'};})).sort(function(a,b){return a.S-b.S;});
